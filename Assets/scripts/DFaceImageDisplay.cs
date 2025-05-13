@@ -73,8 +73,8 @@ public class DFaceImageDisplay : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("face");
     }
 
-    public void BackToPlanets()
+    public void LetsGoButton()
    {
-   UnityEngine.SceneManagement.SceneManager.LoadScene("planets");
+   UnityEngine.SceneManagement.SceneManager.LoadScene("earthScene");
    }
 }

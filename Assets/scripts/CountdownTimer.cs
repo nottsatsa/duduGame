@@ -41,6 +41,6 @@ public class CountdownTimer : MonoBehaviour
 
     void LoadNextScene()
     {
-        SceneManager.LoadScene("cameraScene");
+        SceneManager.LoadScene("face");
     }
 }

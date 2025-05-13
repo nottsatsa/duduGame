@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlanetsSelect : MonoBehaviour
 {
+   public void ToTheGuideScene()
+   {
+   UnityEngine.SceneManagement.SceneManager.LoadScene("guide");
+   }
    public void MoonPlanet()
    {
    UnityEngine.SceneManagement.SceneManager.LoadScene("moonScene");
