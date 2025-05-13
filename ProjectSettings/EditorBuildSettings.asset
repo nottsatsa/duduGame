@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/face.unity
     guid: b435971124cb11d47bef2c5e4dec793d
+  - enabled: 1
+    path: Assets/Scenes/astroFace.unity
+    guid: f9fadf20d094dfa44b3d09ceda833be1
   - enabled: 0
     path: Assets/Scenes/cameraScene.unity
     guid: 6a930240fe57d6646af13472427ceeaa

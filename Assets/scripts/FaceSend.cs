@@ -86,7 +86,7 @@ public class FaceSend : MonoBehaviour
                         DetectedFaceImageHolder.faceTexture = detectedFace;
 
                         // Scene сольж байна
-                        UnityEngine.SceneManagement.SceneManager.LoadScene("guide");
+                        UnityEngine.SceneManagement.SceneManager.LoadScene("astroFace");
                     }
                     else
                     {
