@@ -75,6 +75,6 @@ public class DFaceImageDisplay : MonoBehaviour
 
     public void LetsGoButton()
    {
-   UnityEngine.SceneManagement.SceneManager.LoadScene("earthScene");
+   UnityEngine.SceneManagement.SceneManager.LoadScene("moonScene");
    }
 }

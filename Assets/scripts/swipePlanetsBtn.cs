@@ -3,14 +3,15 @@ using UnityEngine.UI;
 
 public class swipePlanetsBtn : MonoBehaviour
 {
-    public GameObject scrollbar;
-    public float lerpSpeed = 10f; // Make this configurable
-    public float snapThreshold = 0.01f; // When to stop lerping
+    public GameObject scrollbar;          // Scrollbar-ын объект
+    public float lerpSpeed = 10f;         // Хөдөлгөөний хурд
+    public float snapThreshold = 0.01f;   // "Засварлах" бүс
     
-    private float scroll_pos = 0f;
-    private float[] pos;
-    private bool isLerping = false;
-    private float targetPos;
+    private float scroll_pos = 0f;        // Одоогийн байрлал
+    private float[] pos;                  // Боломжит байрлалууд
+    private bool isLerping = false;       // Одоо шилжиж байгаа эсэх
+    private float targetPos;              // Очих байрлал
+    private float distance;               // Элементүүдийн хоорондох зай
 
     void Start()
     {
@@ -20,41 +21,59 @@ public class swipePlanetsBtn : MonoBehaviour
     void InitializePositions()
     {
         pos = new float[transform.childCount];
-        float distance = 1f / (pos.Length - 1f);
+        distance = 1f / (pos.Length - 1f);  // Зайг тооцоолох
         for (int i = 0; i < pos.Length; i++)
         {
-            pos[i] = distance * i;
+            pos[i] = distance * i;  // Байрлалуудыг тохируулах (0-1 хооронд)
         }
     }
 
     void Update()
     {
-        // Handle input
+        // Хэрэв дарж эхэлбэл (мөн touch)
         if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
             scroll_pos = scrollbar.GetComponent<Scrollbar>().value;
             isLerping = false;
         }
         
-        // Handle automatic snapping
-        if (!isLerping && !Input.GetMouseButton(0) // Not dragging
-            && (Input.touchCount == 0 || Input.GetTouch(0).phase != TouchPhase.Moved)) // Not touching
+        // Хэрэв чирээгүй бол, хамгийн ойр байрлал руу шилжих
+        if (!isLerping && !Input.GetMouseButton(0) && (Input.touchCount == 0 || Input.GetTouch(0).phase != TouchPhase.Moved))
         {
             FindNearestPosition();
         }
 
+        // Хэрэв шилжиж байгаа бол
         if (isLerping)
         {
             float currentValue = scrollbar.GetComponent<Scrollbar>().value;
             float newValue = Mathf.Lerp(currentValue, targetPos, lerpSpeed * Time.deltaTime);
             scrollbar.GetComponent<Scrollbar>().value = newValue;
 
-            // Stop lerping when close enough
+            // Хэрэв ойрхон ирвэл зогсоох
             if (Mathf.Abs(newValue - targetPos) < snapThreshold)
             {
                 scrollbar.GetComponent<Scrollbar>().value = targetPos;
                 isLerping = false;
             }
+        }
+
+        // Хүүхдүүдийн хэмжээг өөрчлөх (төвлөрсөн элементийг томруулах)
+        for (int i = 0; i < pos.Length; i++)
+        {
+            float childScale = 0.8f;  // Жижиг хэмжээ
+            if (scrollbar.GetComponent<Scrollbar>().value >= pos[i] - (distance / 2) && 
+                scrollbar.GetComponent<Scrollbar>().value <= pos[i] + (distance / 2))
+            {
+                childScale = 1.1f;  // Том хэмжээ (төвд байгаа)
+            }
+            
+            // Гөлгөр өөрчлөлт
+            transform.GetChild(i).localScale = Vector2.Lerp(
+                transform.GetChild(i).localScale, 
+                new Vector2(childScale, childScale), 
+                5f * Time.deltaTime
+            );
         }
     }
 
@@ -66,10 +85,10 @@ public class swipePlanetsBtn : MonoBehaviour
 
         for (int i = 0; i < pos.Length; i++)
         {
-            float distance = Mathf.Abs(currentScrollPos - pos[i]);
-            if (distance < minDistance)
+            float dist = Mathf.Abs(currentScrollPos - pos[i]);
+            if (dist < minDistance)
             {
-                minDistance = distance;
+                minDistance = dist;
                 nearestIndex = i;
             }
         }
