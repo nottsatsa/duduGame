@@ -21,8 +21,29 @@ EditorBuildSettings:
     path: Assets/Scenes/moonScene.unity
     guid: 452c3e0b40193a74294ec26833d028a1
   - enabled: 1
+    path: Assets/Scenes/mercuryScene.unity
+    guid: da0b8a2dd1eb2f940a8ccbe24b843e7c
+  - enabled: 1
+    path: Assets/Scenes/venusScene.unity
+    guid: f580ba0371fb432429d7e78344caba68
+  - enabled: 1
     path: Assets/Scenes/earthScene.unity
     guid: a2dda01d9013491489d9a9a84d5c2a38
+  - enabled: 1
+    path: Assets/Scenes/marsScene.unity
+    guid: ae2c074322ca0434c86c7792a554385d
+  - enabled: 1
+    path: Assets/Scenes/jupiterScene.unity
+    guid: b02f842cd25766e469ef7e7a06379bd8
+  - enabled: 1
+    path: Assets/Scenes/saturnScene.unity
+    guid: 14e1b981fefee7f4dbd7f0474038d3ce
+  - enabled: 1
+    path: Assets/Scenes/uranusScene.unity
+    guid: eeee7fbd44828e341bd3dcc23e550e2f
+  - enabled: 1
+    path: Assets/Scenes/neptuneScene.unity
+    guid: b89dc18be7fd6dd498fb363f7df682b6
   - enabled: 0
     path: Assets/Scenes/cameraScene.unity
     guid: 6a930240fe57d6646af13472427ceeaa
