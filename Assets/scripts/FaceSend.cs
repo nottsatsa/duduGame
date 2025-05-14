@@ -4,18 +4,22 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
+
 public class FaceSend : MonoBehaviour
 {
     [SerializeField] private RawImage cameraFeed;
     [SerializeField] private Button sendButton;
     [SerializeField] private RawImage resultDisplay;
-    [SerializeField] private TextMeshProUGUI errorText; // ← Text UI холбоно
+    [SerializeField] private TextMeshProUGUI errorText;
+
+    [SerializeField] private Animator transition;
+    [SerializeField] private float transitionTime = 1f;
 
     private WebCamTexture webCamTexture;
 
     void Start()
     {
-        // Холболтуудыг шалгах
         if (cameraFeed == null)
         {
             Debug.LogError("Camera Feed RawImage холбогдоогүй байна!");
@@ -30,15 +34,13 @@ public class FaceSend : MonoBehaviour
 
         if (errorText != null)
         {
-            errorText.gameObject.SetActive(false); // Эхэндээ алга байлга
+            errorText.gameObject.SetActive(false);
         }
 
-        // Камер эхлүүлэх
         webCamTexture = new WebCamTexture();
         cameraFeed.texture = webCamTexture;
         webCamTexture.Play();
 
-        // Товч дарахад функц дуудах
         sendButton.onClick.AddListener(async () => {
             try
             {
@@ -71,36 +73,43 @@ public class FaceSend : MonoBehaviour
             MultipartFormDataContent form = new MultipartFormDataContent();
             form.Add(new ByteArrayContent(bytes), "image", "face.jpg");
 
-            HttpResponseMessage response = await client.PostAsync("http://127.0.0.1:5000/detect_face", form);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                byte[] resultBytes = await response.Content.ReadAsByteArrayAsync();
-                Texture2D detectedFace = new Texture2D(2, 2);
+                HttpResponseMessage response = await client.PostAsync("http://127.0.0.1:5000/detect_face", form);
 
-                if (detectedFace.LoadImage(resultBytes))
+                if (response.IsSuccessStatusCode)
                 {
-                    if (resultBytes.Length > 1000) // Царай илэрсэн гэж үзэх хязгаар
-                    {
-                        CreateResultImage(detectedFace);
-                        DetectedFaceImageHolder.faceTexture = detectedFace;
+                    byte[] resultBytes = await response.Content.ReadAsByteArrayAsync();
+                    Texture2D detectedFace = new Texture2D(2, 2);
 
-                        // Scene сольж байна
-                        UnityEngine.SceneManagement.SceneManager.LoadScene("astroFace");
+                    if (detectedFace.LoadImage(resultBytes))
+                    {
+                        if (resultBytes.Length > 1000)
+                        {
+                            CreateResultImage(detectedFace);
+                            DetectedFaceImageHolder.faceTexture = detectedFace;
+
+                            // Шилжилттэйгээр scene ачааллах
+                            StartCoroutine(LoadWithTransition("astroFace"));
+                        }
+                        else
+                        {
+                            ShowError("Царай илрээгүй тул дахин зургаа дарна уу.");
+                        }
                     }
                     else
                     {
-                        ShowError("Царай илрээгүй тул дахин зургаа дарна уу.");
+                        ShowError("Зураг буцааж уншиж чадсангүй.");
                     }
                 }
                 else
                 {
-                    ShowError("Зураг буцааж уншиж чадсангүй.");
+                    ShowError("Царай илрүүлж чадсангүй. Дахин зураг дарна уу");
                 }
             }
-            else
+            catch (HttpRequestException e)
             {
-                ShowError("Серверийн хариу амжилтгүй боллоо.");
+                ShowError("Сервертэй холбогдож чадсангүй: " + e.Message);
             }
         }
         finally
@@ -159,13 +168,22 @@ public class FaceSend : MonoBehaviour
         }
     }
 
+    IEnumerator LoadWithTransition(string sceneName)
+    {
+        if (transition != null)
+        {
+            transition.SetTrigger("Start");
+        }
+
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(sceneName);
+    }
+
     public void PlanetsScene()
     {
-        // UnityEngine.SceneManagement.SceneManager.LoadScene("guide");
         SceneManager.LoadScene("guide");
     }
 }
-
 
 ///////////////////////////////////////////
 ///
