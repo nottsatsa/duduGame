@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlanetsSelect : MonoBehaviour
 {
+   public void ReturnBtn()
+   {
+   UnityEngine.SceneManagement.SceneManager.LoadScene("test");
+   }
    public void SkipCameraBtn()
    {
    UnityEngine.SceneManagement.SceneManager.LoadScene("astroFace");
