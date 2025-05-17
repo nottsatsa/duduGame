@@ -1,3 +1,205 @@
+// using UnityEngine;
+// using UnityEngine.UI;
+// using System.Net.Http;
+// using System.Threading.Tasks;
+// using TMPro;
+// using UnityEngine.SceneManagement;
+// using System.Collections;
+
+// // public class USBCameraController : MonoBehaviour
+// public class FaceSend : MonoBehaviour
+// {
+//     [Header("UI Хэсэг")]
+//     [SerializeField] private RawImage cameraDisplay;
+//     [SerializeField] private Button captureButton;
+//     [SerializeField] private RawImage resultDisplay;
+//     [SerializeField] private TextMeshProUGUI statusText;
+
+//     [Header("Шилжилтийн Эффект")]
+//     [SerializeField] private Animator sceneTransition;
+//     [SerializeField] private float transitionDuration = 1f;
+
+//     private WebCamTexture webcamFeed;
+//     private bool isCameraActive = false;
+
+//     void Start()
+//     {
+//         // Камерын зөвшөөрөл шалгах
+//         CheckCameraPermission();
+        
+//         // Товчлуурт функц оноох
+//         if (captureButton != null)
+//         {
+//             captureButton.onClick.AddListener(async () => {
+//                 await CaptureAndProcessImage();
+//             });
+//         }
+//     }
+
+//     void CheckCameraPermission()
+//     {
+//         #if UNITY_ANDROID
+//         if (!UnityEngine.Android.Permission.HasUserAuthorizedPermission(UnityEngine.Android.Permission.Camera))
+//         {
+//             UnityEngine.Android.Permission.RequestUserPermission(UnityEngine.Android.Permission.Camera);
+//             ShowStatus("Камерын зөвшөөрөл шаардлагатай");
+//             return;
+//         }
+//         #endif
+
+//         InitializeUSBCamera();
+//     }
+
+//     void InitializeUSBCamera()
+//     {
+//         // Бүх камерын төхөөрөмжийг шалгах
+//         WebCamDevice[] cameras = WebCamTexture.devices;
+        
+//         if (cameras.Length == 0)
+//         {
+//             ShowStatus("Ямар ч камер олдсонгүй");
+//             return;
+//         }
+
+//         // USB камер хайх
+//         foreach (var cam in cameras)
+//         {
+//             if (cam.name.Contains("UVC") || cam.name.Contains("USB"))
+//             {
+//                 StartCamera(cam.name);
+//                 return;
+//             }
+//         }
+
+//         // USB камер олдохгүй бол эхний камерыг ашиглах
+//         StartCamera(cameras[0].name);
+//     }
+
+//     void StartCamera(string cameraName)
+//     {
+//         if (webcamFeed != null)
+//         {
+//             webcamFeed.Stop();
+//             Destroy(webcamFeed);
+//         }
+
+//         webcamFeed = new WebCamTexture(cameraName, 1280, 720, 30);
+        
+//         if (cameraDisplay != null)
+//         {
+//             cameraDisplay.texture = webcamFeed;
+//         }
+
+//         webcamFeed.Play();
+//         isCameraActive = true;
+//         ShowStatus(cameraName + " камер ажиллаж байна");
+//     }
+
+//     async Task CaptureAndProcessImage()
+//     {
+//         if (!isCameraActive || webcamFeed == null || !webcamFeed.isPlaying)
+//         {
+//             ShowStatus("Камер бэлэн биш байна");
+//             return;
+//         }
+
+//         // Зураг авах
+//         Texture2D photo = new Texture2D(webcamFeed.width, webcamFeed.height);
+//         photo.SetPixels(webcamFeed.GetPixels());
+//         photo.Apply();
+
+//         // Сервер рүү илгээх (эсвэл өөр процесс хийх)
+//         bool success = await SendToServer(photo);
+        
+//         if (success)
+//         {
+//             ShowStatus("Амжилттай боловсрууллаа");
+//             if (resultDisplay != null)
+//             {
+//                 resultDisplay.texture = photo;
+//             }
+//         }
+        
+//         Destroy(photo);
+//     }
+
+//     async Task<bool> SendToServer(Texture2D image)
+//     {
+//         // Энд сервер рүү илгээх код оруулна
+//         // Жишээ нь:
+//         /*
+//         byte[] imageData = image.EncodeToJPG();
+//         using HttpClient client = new HttpClient();
+//         try {
+//             var response = await client.PostAsync("http://yourserver.com/api", new ByteArrayContent(imageData));
+//             return response.IsSuccessStatusCode;
+//         }
+//         catch {
+//             return false;
+//         }
+//         */
+        
+//         return await Task.FromResult(true); // Туршилтын хувьд
+//     }
+
+//     void ShowStatus(string message)
+//     {
+//         if (statusText != null)
+//         {
+//             statusText.text = message;
+//         }
+//         Debug.Log(message);
+//     }
+
+//     void OnDestroy()
+//     {
+//         if (webcamFeed != null)
+//         {
+//             webcamFeed.Stop();
+//             Destroy(webcamFeed);
+//         }
+//     }
+
+//     void OnApplicationPause(bool pauseStatus)
+//     {
+//         if (pauseStatus && webcamFeed != null && webcamFeed.isPlaying)
+//         {
+//             webcamFeed.Stop();
+//             isCameraActive = false;
+//         }
+//         else if (!pauseStatus && webcamFeed != null && !webcamFeed.isPlaying)
+//         {
+//             webcamFeed.Play();
+//             isCameraActive = true;
+//         }
+//     }
+
+//     public void ChangeScene(string sceneName)
+//     {
+//         StartCoroutine(TransitionToScene(sceneName));
+//     }
+
+//     IEnumerator TransitionToScene(string sceneName)
+//     {
+//         if (webcamFeed != null && webcamFeed.isPlaying)
+//         {
+//             webcamFeed.Stop();
+//         }
+
+
+//         if (sceneTransition != null)
+//         {
+//             sceneTransition.SetTrigger("Start");
+//         }
+
+//         yield return new WaitForSeconds(transitionDuration);
+//         SceneManager.LoadScene(sceneName);
+//     }
+// }
+
+
+
+//delguur deer ajilluulkaad boloogu kod, ZUVHUN UUR DEEREE CAMERATAI TUHUURUMJ DEER L AJILNA 
 using UnityEngine;
 using UnityEngine.UI;
 using System.Net.Http;
