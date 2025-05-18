@@ -66,7 +66,7 @@ public class moonWR : MonoBehaviour{
 
             // UI дээр харуулах
             if (weightDisplay != null)
-                weightDisplay.text = $"{currentWeight*0.17} kg";
+                weightDisplay.text = $"Сар дээр та ердөө {currentWeight*0.17}кг л байна!";
         }
         catch (System.Exception e)
         {

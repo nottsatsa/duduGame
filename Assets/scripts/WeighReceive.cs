@@ -68,7 +68,7 @@ public class WeighReceive : MonoBehaviour{
 
             // UI дээр харуулах
             if (weightDisplay != null)
-                weightDisplay.text = $"{currentWeight} kg";
+                weightDisplay.text = $"Дэлхий дээр {currentWeight}кг!";
         }
         catch (System.Exception e)
         {

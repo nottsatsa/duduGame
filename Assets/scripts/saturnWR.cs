@@ -66,7 +66,7 @@ public class saturnWR : MonoBehaviour{
 
             // UI дээр харуулах
             if (weightDisplay != null)
-                weightDisplay.text = $"{currentWeight*1.06} kg";
+                weightDisplay.text = $"Санчир дээр таны жин {currentWeight*1.06}кг!";
         }
         catch (System.Exception e)
         {

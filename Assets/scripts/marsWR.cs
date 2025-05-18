@@ -66,7 +66,7 @@ public class marsWR : MonoBehaviour{
 
             // UI дээр харуулах
             if (weightDisplay != null)
-                weightDisplay.text = $"{currentWeight*0.38} kg";
+                weightDisplay.text = $"Ангараг дээр та {currentWeight*0.38} кг жинтэй байна!";
         }
         catch (System.Exception e)
         {

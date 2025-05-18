@@ -1,0 +1,59 @@
+fileFormatVersion: 2
+guid: bcd7cd7afc19c944686b3371d4e3b580
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: a57477913897c46af95d590f580878bd, type: 3}
+  svgType: 0
+  texturedSpriteMeshType: 0
+  svgPixelsPerUnit: 100
+  gradientResolution: 64
+  alignment: 8
+  customPivot: {x: 1, y: 0}
+  generatePhysicsShape: 0
+  viewportOptions: 0
+  preserveViewport: 0
+  advancedMode: 0
+  predefinedResolutionIndex: 1
+  targetResolution: 1080
+  resolutionMultiplier: 1
+  stepDistance: 10
+  samplingStepDistance: 100
+  maxCordDeviationEnabled: 0
+  maxCordDeviation: 1
+  maxTangentAngleEnabled: 0
+  maxTangentAngle: 5
+  keepTextureAspectRatio: 1
+  textureSize: 256
+  textureWidth: 256
+  textureHeight: 256
+  wrapMode: 0
+  filterMode: 1
+  sampleCount: 4
+  preserveSVGImageAspect: 0
+  useSVGPixelsPerUnit: 0
+  spriteData:
+    TessellationDetail: 0
+    SpriteRect:
+      name: smoonSprite
+      originalName: 
+      pivot: {x: 1.0003322, y: 0}
+      alignment: 8
+      border: {x: 844, y: 0, z: 0, w: 578}
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1028
+        height: 1011
+      spriteID: d99d61b92b77ccc409bf615dd04601f0
+    PhysicsOutlines:
+    - Vertices:
+      - {x: -514, y: 30.671875}
+      - {x: -514, y: 505.5}
+      - {x: 293.68585, y: 505.5}
+      - {x: 293.68585, y: 32.45813}

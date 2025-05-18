@@ -66,7 +66,7 @@ public class mercuryWR : MonoBehaviour{
 
             // UI дээр харуулах
             if (weightDisplay != null)
-                weightDisplay.text = $"{currentWeight*0.38} kg";
+                weightDisplay.text = $"Буд дээр таны жин {currentWeight*0.38}кг!";
         }
         catch (System.Exception e)
         {

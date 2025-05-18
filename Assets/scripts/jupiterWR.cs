@@ -66,7 +66,7 @@ public class jupiterWR : MonoBehaviour{
 
             // UI дээр харуулах
             if (weightDisplay != null)
-                weightDisplay.text = $"{currentWeight*2.34} kg";
+                weightDisplay.text = $"Вөөөө! Бархасбадь дээр та {currentWeight*2.34}кг жинтэй байна!";
         }
         catch (System.Exception e)
         {
