@@ -6,7 +6,7 @@ using TMPro;
 public class mercuryWR : MonoBehaviour{
     [Header("ESP32 Settings")]
     public string serverAddress = "http://192.168.4.1"; // ESP32-ын Access Point хаяг
-    public float updateInterval = 1f; // Шинэчлэх хугацаа
+    public float updateInterval = 0.5f; // Шинэчлэх хугацаа
 
     [Header("UI Settings")]
     public TMP_Text weightDisplay; // Жин харуулах текст
@@ -66,7 +66,7 @@ public class mercuryWR : MonoBehaviour{
 
             // UI дээр харуулах
             if (weightDisplay != null)
-                weightDisplay.text = $"Буд дээр таны жин {currentWeight*0.38}кг!";
+                weightDisplay.text = $"Буд дээр {currentWeight*0.38}кг";
         }
         catch (System.Exception e)
         {

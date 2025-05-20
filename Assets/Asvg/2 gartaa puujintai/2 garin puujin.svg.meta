@@ -1,0 +1,59 @@
+fileFormatVersion: 2
+guid: cb0924b9ca8545940894c5f8fc221556
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: a57477913897c46af95d590f580878bd, type: 3}
+  svgType: 0
+  texturedSpriteMeshType: 0
+  svgPixelsPerUnit: 100
+  gradientResolution: 64
+  alignment: 9
+  customPivot: {x: 0.5013871, y: 0.5338712}
+  generatePhysicsShape: 0
+  viewportOptions: 0
+  preserveViewport: 0
+  advancedMode: 0
+  predefinedResolutionIndex: 1
+  targetResolution: 1080
+  resolutionMultiplier: 1
+  stepDistance: 10
+  samplingStepDistance: 100
+  maxCordDeviationEnabled: 0
+  maxCordDeviation: 1
+  maxTangentAngleEnabled: 0
+  maxTangentAngle: 5
+  keepTextureAspectRatio: 1
+  textureSize: 256
+  textureWidth: 256
+  textureHeight: 256
+  wrapMode: 0
+  filterMode: 1
+  sampleCount: 4
+  preserveSVGImageAspect: 0
+  useSVGPixelsPerUnit: 0
+  spriteData:
+    TessellationDetail: 0
+    SpriteRect:
+      name: 2 garin puujinSprite
+      originalName: 
+      pivot: {x: 0.5013871, y: 0.5338712}
+      alignment: 9
+      border: {x: 0, y: 0, z: 0, w: 0}
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 2642
+        height: 1623
+      spriteID: 062da1a9007659f4abe5bed9aea9343a
+    PhysicsOutlines:
+    - Vertices:
+      - {x: -1321, y: -811.5}
+      - {x: -1321, y: 811.5}
+      - {x: -350, y: 795.5}
+      - {x: -332, y: -811.5}

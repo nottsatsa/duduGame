@@ -6,7 +6,7 @@ using TMPro;
 public class moonWR : MonoBehaviour{
     [Header("ESP32 Settings")]
     public string serverAddress = "http://192.168.4.1"; // ESP32-ын Access Point хаяг
-    public float updateInterval = 1f; // Шинэчлэх хугацаа
+    public float updateInterval = 0.5f; // Шинэчлэх хугацаа
 
     [Header("UI Settings")]
     public TMP_Text weightDisplay; // Жин харуулах текст
@@ -66,7 +66,7 @@ public class moonWR : MonoBehaviour{
 
             // UI дээр харуулах
             if (weightDisplay != null)
-                weightDisplay.text = $"Сар дээр та ердөө {currentWeight*0.17}кг л байна!";
+                weightDisplay.text = $"Саран дээр {currentWeight*0.17}кг";
         }
         catch (System.Exception e)
         {

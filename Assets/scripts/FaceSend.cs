@@ -326,47 +326,88 @@ public class FaceSend : MonoBehaviour
     }
     }
 
-    void InitCamera()
+    // void InitCamera()
+    // {
+    //     // Камерын төхөөрөмж сонгох
+    //     WebCamDevice device = WebCamTexture.devices[currentCameraIndex];
+    //     webCamTexture = new WebCamTexture(device.name);
+    //     if (cameraFeed == null)
+    //     {
+    //         Debug.LogError("Camera Feed RawImage холбогдоогүй байна!");
+    //         return;
+    //     }
+
+    //     if (sendButton == null)
+    //     {
+    //         Debug.LogError("Send Button холбогдоогүй байна!");
+    //         return;
+    //     }
+
+    //     if (errorText != null)
+    //     {
+    //         errorText.gameObject.SetActive(false);
+    //     }
+
+    //     webCamTexture = new WebCamTexture();
+    //     cameraFeed.texture = webCamTexture;
+    //     webCamTexture.Play();
+
+    //     sendButton.onClick.AddListener(async () =>
+    //     {
+    //         try
+    //         {
+    //             await CaptureAndSend();
+    //         }
+    //         catch (System.Exception e)
+    //         {
+    //             Debug.LogError("CaptureAndSend алдаа: " + e.Message);
+    //             ShowError("Алдаа гарлаа: " + e.Message);
+    //         }
+    //     });
+    // }
+
+void InitCamera()
+{
+    if (cameraFeed == null)
     {
-        // Камерын төхөөрөмж сонгох
-        WebCamDevice device = WebCamTexture.devices[currentCameraIndex];
-        webCamTexture = new WebCamTexture(device.name);
-        if (cameraFeed == null)
-        {
-            Debug.LogError("Camera Feed RawImage холбогдоогүй байна!");
-            return;
-        }
-
-        if (sendButton == null)
-        {
-            Debug.LogError("Send Button холбогдоогүй байна!");
-            return;
-        }
-
-        if (errorText != null)
-        {
-            errorText.gameObject.SetActive(false);
-        }
-
-        webCamTexture = new WebCamTexture();
-        cameraFeed.texture = webCamTexture;
-        webCamTexture.Play();
-
-        sendButton.onClick.AddListener(async () =>
-        {
-            try
-            {
-                await CaptureAndSend();
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError("CaptureAndSend алдаа: " + e.Message);
-                ShowError("Алдаа гарлаа: " + e.Message);
-            }
-        });
+        Debug.LogError("Camera Feed RawImage холбогдоогүй байна!");
+        return;
     }
 
-void Update()
+    if (sendButton == null)
+    {
+        Debug.LogError("Send Button холбогдоогүй байна!");
+        return;
+    }
+
+    if (errorText != null)
+    {
+        errorText.gameObject.SetActive(false);
+    }
+
+    // 🟢 Одоо зөв төхөөрөмж сонгоод WebCamTexture үүсгэх
+    WebCamDevice device = WebCamTexture.devices[currentCameraIndex];
+    webCamTexture = new WebCamTexture(device.name, 640, 480); // Хэмжээг дуртайгаар өөрчилж болно
+
+    cameraFeed.texture = webCamTexture;
+    webCamTexture.Play();
+
+    sendButton.onClick.RemoveAllListeners(); // Хуучин listener арилгах
+    sendButton.onClick.AddListener(async () =>
+    {
+        try
+        {
+            await CaptureAndSend();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("CaptureAndSend алдаа: " + e.Message);
+            ShowError("Алдаа гарлаа: " + e.Message);
+        }
+    });
+}
+
+    void Update()
 {
     if (webCamTexture != null && webCamTexture.isPlaying)
     {

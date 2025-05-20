@@ -1,61 +1,61 @@
-// using UnityEngine;
-// using TMPro;
+// // using UnityEngine;
+// // using TMPro;
 
-// public class PlanetInfoManager : MonoBehaviour
-// {
-//     public GameObject[] planetInfoObjects; // 9 гаригийн мэдээллийн GameObject-ууд
-//     public TMP_Text planetNameText; // Нэрийг харуулах текст
+// // public class PlanetInfoManager : MonoBehaviour
+// // {
+// //     public GameObject[] planetInfoObjects; // 9 гаригийн мэдээллийн GameObject-ууд
+// //     public TMP_Text planetNameText; // Нэрийг харуулах текст
     
-//     private bool[] hasBeenShown; // Гариг анх харуулагдсан эсэх
-//     private int currentShownIndex = -1;
+// //     private bool[] hasBeenShown; // Гариг анх харуулагдсан эсэх
+// //     private int currentShownIndex = -1;
 
-//     void Start()
-//     {
-//         hasBeenShown = new bool[planetInfoObjects.Length];
-//         HideAllPlanetInfo();
-//     }
+// //     void Start()
+// //     {
+// //         hasBeenShown = new bool[planetInfoObjects.Length];
+// //         HideAllPlanetInfo();
+// //     }
 
-//     public void ShowPlanetInfo(int planetIndex)
-//     {
-//         // Хэрэв анхны харуулалт биш бол хуучин мэдээллийг нуух
-//         if (currentShownIndex != -1)
-//         {
-//             planetInfoObjects[currentShownIndex].SetActive(false);
-//         }
+// //     public void ShowPlanetInfo(int planetIndex)
+// //     {
+// //         // Хэрэв анхны харуулалт биш бол хуучин мэдээллийг нуух
+// //         if (currentShownIndex != -1)
+// //         {
+// //             planetInfoObjects[currentShownIndex].SetActive(false);
+// //         }
 
-//         // Шинэ мэдээллийг харуулах
-//         planetInfoObjects[planetIndex].SetActive(true);
-//         currentShownIndex = planetIndex;
+// //         // Шинэ мэдээллийг харуулах
+// //         planetInfoObjects[planetIndex].SetActive(true);
+// //         currentShownIndex = planetIndex;
 
-//         // Нэрийг шинэчлэх
-//         planetNameText.text = planetInfoObjects[planetIndex].name;
+// //         // Нэрийг шинэчлэх
+// //         planetNameText.text = planetInfoObjects[planetIndex].name;
 
-//         // Хэрэв анх удаа харуулагдаж байгаа бол
-//         if (!hasBeenShown[planetIndex])
-//         {
-//             PlayIntroAnimation(planetIndex);
-//             hasBeenShown[planetIndex] = true;
-//         }
-//     }
+// //         // Хэрэв анх удаа харуулагдаж байгаа бол
+// //         if (!hasBeenShown[planetIndex])
+// //         {
+// //             PlayIntroAnimation(planetIndex);
+// //             hasBeenShown[planetIndex] = true;
+// //         }
+// //     }
 
-//     void PlayIntroAnimation(int index)
-//     {
-//         // Анхны анимаци (жишээ нь томрох, эргэх)
-//         Animator anim = planetInfoObjects[index].GetComponent<Animator>();
-//         if (anim != null)
-//         {
-//             anim.Play("FirstShow");
-//         }
-//     }
+// //     void PlayIntroAnimation(int index)
+// //     {
+// //         // Анхны анимаци (жишээ нь томрох, эргэх)
+// //         Animator anim = planetInfoObjects[index].GetComponent<Animator>();
+// //         if (anim != null)
+// //         {
+// //             anim.Play("FirstShow");
+// //         }
+// //     }
 
-//     void HideAllPlanetInfo()
-//     {
-//         foreach (GameObject info in planetInfoObjects)
-//         {
-//             info.SetActive(false);
-//         }
-//     }
-// }
+// //     void HideAllPlanetInfo()
+// //     {
+// //         foreach (GameObject info in planetInfoObjects)
+// //         {
+// //             info.SetActive(false);
+// //         }
+// //     }
+// // }
 
 
 
@@ -149,3 +149,59 @@ public static float latestWeight = 0;
         if (Input.GetKeyDown(KeyCode.Alpha9)) ShowPlanetInfo(8);
     }
 }
+
+
+// using UnityEngine;
+// using TMPro;
+
+// public class PlanetInfoManager : MonoBehaviour
+// {
+//     public GameObject[] planetInfoObjects;
+//     public TMP_Text planetNameText;
+//     private int currentShownIndex = -1;
+//     public static float latestWeight = 0f;
+
+//     void Start()
+//     {
+//         HideAllPlanetInfo();
+//     }
+
+//     public void ShowPlanetInfo(int planetIndex)
+//     {
+//         if (planetIndex < 0 || planetIndex >= planetInfoObjects.Length || planetInfoObjects[planetIndex] == null)
+//             return;
+
+//         // Өмнөх объектыг нуух
+//         if (currentShownIndex != -1)
+//         {
+//             planetInfoObjects[currentShownIndex].SetActive(false);
+//         }
+
+//         // Шинэ объектыг идэвхжүүлэх
+//         GameObject currentPlanet = planetInfoObjects[planetIndex];
+//         currentPlanet.SetActive(true);
+
+//         // Анимейшн код устгагдсан (Animator шаардлагагүй)
+        
+//         // Нэр шинэчлэх
+//         if (planetNameText != null)
+//         {
+//             planetNameText.text = currentPlanet.name;
+//         }
+
+//         currentShownIndex = planetIndex;
+//     }
+
+//     void HideAllPlanetInfo()
+//     {
+//         foreach (GameObject info in planetInfoObjects)
+//         {
+//             if (info != null) info.SetActive(false);
+//         }
+//     }
+
+//     void Update()
+//     {
+//         latestWeight = ESP32Reader.currentWeight;
+//     }
+// }
