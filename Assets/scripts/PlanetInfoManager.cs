@@ -70,6 +70,10 @@ public class PlanetInfoManager : MonoBehaviour
     private bool[] hasBeenShown; // Анх удаа харуулагдсан эсэх
     private int currentShownIndex = -1;
 
+public static float latestWeight = 0;
+
+
+
     void Start()
     {
         hasBeenShown = new bool[planetInfoObjects.Length];
@@ -133,6 +137,7 @@ public class PlanetInfoManager : MonoBehaviour
     // Түр debug шалгах зориулалттай
     void Update()
     {
+         latestWeight = ESP32Reader.currentWeight;
         if (Input.GetKeyDown(KeyCode.Alpha1)) ShowPlanetInfo(0);
         if (Input.GetKeyDown(KeyCode.Alpha2)) ShowPlanetInfo(1);
         if (Input.GetKeyDown(KeyCode.Alpha3)) ShowPlanetInfo(2);

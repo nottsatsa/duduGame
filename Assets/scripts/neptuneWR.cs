@@ -66,7 +66,7 @@ public class neptuneWR : MonoBehaviour{
 
             // UI дээр харуулах
             if (weightDisplay != null)
-                weightDisplay.text = $"{currentWeight*1.19} kg";
+                weightDisplay.text = $"Далайн ван дээр таны жин {currentWeight*1.19}кг!";
         }
         catch (System.Exception e)
         {

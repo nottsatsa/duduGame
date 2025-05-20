@@ -66,7 +66,7 @@ public class venusWR : MonoBehaviour{
 
             // UI дээр харуулах
             if (weightDisplay != null)
-                weightDisplay.text = $"{currentWeight*0.91} kg";
+                weightDisplay.text = $"Сугар дээр таны жин {currentWeight*0.91}кг!";
         }
         catch (System.Exception e)
         {

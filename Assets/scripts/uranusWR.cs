@@ -66,7 +66,7 @@ public class uranusWR : MonoBehaviour{
 
             // UI дээр харуулах
             if (weightDisplay != null)
-                weightDisplay.text = $"{currentWeight*0.92} kg";
+                weightDisplay.text = $"Тэнгэрийн ван дээр та {currentWeight*0.92}кг байна!";
         }
         catch (System.Exception e)
         {

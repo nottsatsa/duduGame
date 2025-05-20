@@ -1,3 +1,4 @@
+////tablet ashiglah gher hoid camera garch ireed bdg thde zgr ajilna
 // using UnityEngine;
 // using UnityEngine.UI;
 // using System.Net.Http;
@@ -17,6 +18,17 @@
 //     [SerializeField] private float transitionTime = 1f;
 
 //     private WebCamTexture webCamTexture;
+
+//     private string GetServerUrl()
+//     {
+//         if (string.IsNullOrEmpty(IPInputManager.ServerIP))
+//         {
+//             ShowError("IP хаяг хоосон байна!");
+//             return null;
+//         }
+
+//         return $"http://{IPInputManager.ServerIP}:5000/detect_face";
+//     }
 
 //     void Start()
 //     {
@@ -75,12 +87,20 @@
 //             catch (System.Exception e)
 //             {
 //                 Debug.LogError("CaptureAndSend алдаа: " + e.Message);
+//                 ShowError("Алдаа гарлаа: " + e.Message);
 //             }
 //         });
 //     }
 
 //     async Task CaptureAndSend()
 //     {
+//         string url = GetServerUrl();
+//         if (string.IsNullOrEmpty(url))
+//         {
+//             Debug.LogError("IP хаяг буруу эсвэл хоосон байна!");
+//             return;
+//         }
+
 //         if (webCamTexture == null || !webCamTexture.isPlaying)
 //         {
 //             Debug.LogError("Камер ажиллахгүй байна!");
@@ -88,73 +108,55 @@
 //         }
 
 //         Texture2D photo = new Texture2D(webCamTexture.width, webCamTexture.height);
+//         photo.SetPixels(webCamTexture.GetPixels());
+//         photo.Apply();
+
+//         byte[] bytes = photo.EncodeToJPG();
+
+//         using HttpClient client = new HttpClient();
+//         MultipartFormDataContent form = new MultipartFormDataContent();
+//         form.Add(new ByteArrayContent(bytes), "image", "face.jpg");
+
 //         try
 //         {
-//             photo.SetPixels(webCamTexture.GetPixels());
-//             photo.Apply();
+//             HttpResponseMessage response = await client.PostAsync(url, form);
 
-//             byte[] bytes = photo.EncodeToJPG();
-
-//             using HttpClient client = new HttpClient();
-//             MultipartFormDataContent form = new MultipartFormDataContent();
-//             form.Add(new ByteArrayContent(bytes), "image", "face.jpg");
-
-//             string serverUrl = GetServerURL() + "/detect_face";
-
-//             try
+//             if (response.IsSuccessStatusCode)
 //             {
-//                 HttpResponseMessage response = await client.PostAsync(serverUrl, form);
+//                 byte[] resultBytes = await response.Content.ReadAsByteArrayAsync();
+//                 Texture2D detectedFace = new Texture2D(2, 2);
 
-//                 if (response.IsSuccessStatusCode)
+//                 if (detectedFace.LoadImage(resultBytes))
 //                 {
-//                     byte[] resultBytes = await response.Content.ReadAsByteArrayAsync();
-//                     Texture2D detectedFace = new Texture2D(2, 2);
-
-//                     if (detectedFace.LoadImage(resultBytes))
+//                     if (resultBytes.Length > 1000)
 //                     {
-//                         if (resultBytes.Length > 1000)
-//                         {
-//                             CreateResultImage(detectedFace);
-//                             DetectedFaceImageHolder.faceTexture = detectedFace;
-
-//                             StartCoroutine(LoadWithTransition("astroFace"));
-//                         }
-//                         else
-//                         {
-//                             ShowError("Царай илрээгүй тул дахин зургаа дарна уу.");
-//                         }
+//                         CreateResultImage(detectedFace);
+//                         DetectedFaceImageHolder.faceTexture = detectedFace;
+//                         StartCoroutine(LoadWithTransition("astroFace"));
 //                     }
 //                     else
 //                     {
-//                         ShowError("Зураг буцааж уншиж чадсангүй.");
+//                         ShowError("Царай илрээгүй тул дахин зургаа дарна уу.");
 //                     }
 //                 }
 //                 else
 //                 {
-//                     ShowError("Царай илрүүлж чадсангүй. Дахин зураг дарна уу");
+//                     ShowError("Зураг буцааж уншиж чадсангүй.");
 //                 }
 //             }
-//             catch (HttpRequestException e)
+//             else
 //             {
-//                 ShowError("Сервертэй холбогдож чадсангүй: " + e.Message);
+//                 ShowError("Царай илрүүлж чадсангүй. Дахин зураг дарна уу");
 //             }
+//         }
+//         catch (HttpRequestException e)
+//         {
+//             ShowError("Сервертэй холбогдож чадсангүй: " + e.Message);
 //         }
 //         finally
 //         {
 //             Destroy(photo);
 //         }
-//     }
-
-//     /// <summary>
-//     /// Серверийн URL-г авах функц. Хүсвэл PlayerPrefs эсвэл config файл ашиглаж болно.
-//     /// </summary>
-//     string GetServerURL()
-//     {
-//         // Localhost default — зөвхөн камер бүхий төхөөрөмж дээр ажиллана
-//         return "http://127.0.0.1:5000";
-
-//         // Хэрвээ ESP32 эсвэл өөр IP хаяг хэрэглэх бол энд тохируулна:
-//         // return "http://192.168.4.1:5000";
 //     }
 
 //     void ShowError(string message)
@@ -226,14 +228,6 @@
 
 
 
-//
-///
-//
-//
-//
-//
-//
-//
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -253,7 +247,13 @@ public class FaceSend : MonoBehaviour
     [SerializeField] private Animator transition;
     [SerializeField] private float transitionTime = 1f;
 
+   
+    [SerializeField] private Button switchCameraButton; // Камер солих товч
+    [SerializeField] private TextMeshProUGUI switchCameraText;
     private WebCamTexture webCamTexture;
+     private int currentCameraIndex = 0;
+    private bool isFrontFacing = true;
+
 
     private string GetServerUrl()
     {
@@ -277,6 +277,12 @@ public class FaceSend : MonoBehaviour
             }
         }
 
+        
+        // Камер солих товчны event нэмэх
+        if (switchCameraButton != null)
+        {
+            switchCameraButton.onClick.AddListener(SwitchCamera);
+        }
         InitCamera();
     }
 
@@ -291,8 +297,40 @@ public class FaceSend : MonoBehaviour
         }
     }
 
+ // Камер солих функц
+    public void SwitchCamera()
+    {
+        if (WebCamTexture.devices.Length < 2)
+        {
+            Debug.Log("Камер солих боломжгүй - 1 камер байна");
+            return;
+        }
+
+        // Одоогийн камерыг зогсоох
+        if (webCamTexture != null && webCamTexture.isPlaying)
+        {
+            webCamTexture.Stop();
+            Destroy(webCamTexture);
+        }
+
+        // Камерын индексийг солих
+        currentCameraIndex = (currentCameraIndex + 1) % WebCamTexture.devices.Length;
+        isFrontFacing = !isFrontFacing;
+
+        // Шинэ камер эхлүүлэх
+        InitCamera();
+        // Текст шинэчлэх
+    if (switchCameraText != null)
+    {
+        switchCameraText.text = isFrontFacing ? "Арын камер" : "Урд камер";
+    }
+    }
+
     void InitCamera()
     {
+        // Камерын төхөөрөмж сонгох
+        WebCamDevice device = WebCamTexture.devices[currentCameraIndex];
+        webCamTexture = new WebCamTexture(device.name);
         if (cameraFeed == null)
         {
             Debug.LogError("Camera Feed RawImage холбогдоогүй байна!");
@@ -327,6 +365,32 @@ public class FaceSend : MonoBehaviour
             }
         });
     }
+
+void Update()
+{
+    if (webCamTexture != null && webCamTexture.isPlaying)
+    {
+        UpdateCameraOrientation();
+    }
+}
+
+void UpdateCameraOrientation()
+{
+    // Эргэлтийн өнцөг
+    cameraFeed.rectTransform.localEulerAngles = new Vector3(0, 0, -webCamTexture.videoRotationAngle);
+    
+    // Толин тусгал (зөвхөн урд камерын хувьд)
+    if (isFrontFacing)
+    {
+        cameraFeed.rectTransform.localScale = new Vector3(
+            webCamTexture.videoVerticallyMirrored ? -1 : 1,
+            1, 1);
+    }
+    else
+    {
+        cameraFeed.rectTransform.localScale = Vector3.one;
+    }
+}
 
     async Task CaptureAndSend()
     {
@@ -461,3 +525,8 @@ public class FaceSend : MonoBehaviour
         SceneManager.LoadScene("guide");
     }
 }
+
+
+
+
+
