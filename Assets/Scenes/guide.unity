@@ -418,6 +418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countdownText: {fileID: 1971755075}
   countdownTime: 10
+  cameraExampl: {fileID: 519420033}
 --- !u!1 &168604117
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,6 +779,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -852,6 +854,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b04ad412eae959d48b90254f219c90b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rawImage: {fileID: 0}
+  faceupload: {fileID: 1333540385}
 --- !u!1 &722581139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,6 +1247,7 @@ GameObject:
   - component: {fileID: 1333540383}
   - component: {fileID: 1333540382}
   - component: {fileID: 1333540384}
+  - component: {fileID: 1333540385}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -1317,6 +1334,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1333540385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333540380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd690b216d3381b47a30a0b0dde98b18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resultImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  serverUrl: http://192.168.4.2:5000/detect_face
 --- !u!1 &1430092523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,7 +1947,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4880809471173272119}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6642a392d0768e44babca51c33e18c57, type: 3}
   m_Name: 
@@ -1932,6 +1964,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4880809471173272117}
   - component: {fileID: 4880809471173272118}
+  - component: {fileID: 4880809471173272120}
   m_Layer: 0
   m_Name: SceneLoader
   m_TagString: Untagged
@@ -1939,6 +1972,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4880809471173272120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4880809471173272119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c9b31b9248949e4bb0c5ee86c344299, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transition: {fileID: 8572329278529872120}
+  transitionTime: 1
 --- !u!222 &4880809471624608967
 CanvasRenderer:
   m_ObjectHideFlags: 0

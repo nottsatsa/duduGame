@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DuduKidsMuseum
-  productName: android Test 5
+  companyName: KidsDuduMuseum
+  productName: android Test 10
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -158,7 +158,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.Dudu.android
+    Android: com.Uridchilsan.android
     Standalone: com.DefaultCompany.2DProject
   buildNumber:
     Standalone: 0
@@ -277,7 +277,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: d15381794ee6c284aafb8314fb3ae7b9, type: 3}
+      m_Icon: {fileID: 2800000, guid: 442062e19181b38409e77c6f49959e3b, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

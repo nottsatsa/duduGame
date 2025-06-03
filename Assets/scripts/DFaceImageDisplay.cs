@@ -30,6 +30,61 @@
 //     }
 // }
 
+////ajildag thde back button function bhgu
+// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
+// using UnityEngine.UI;  // Энэ мөрийг нэмнэ
+
+// public class DFaceImageDisplay : MonoBehaviour
+// {
+//     public RawImage cameraFeed;
+    
+//     // public cameraExampl cameraScript; // Камер хариуцсан скрипт руу холбоно
+
+//     void Start()
+//     {
+//         if (cameraFeed == null)
+//         {
+//             Debug.LogError("Camera Feed RawImage холбогдоогүй байна!");
+//             return;
+//         }
+
+//         // if (DetectedFaceImageHolder.faceTexture != null)
+//         // {
+//         //     cameraFeed.texture = DetectedFaceImageHolder.faceTexture;
+//         //     cameraFeed.gameObject.SetActive(true);
+//         // }
+//          if (FaceResultHolder.resultTexture != null)
+//         {
+//             cameraFeed.texture = FaceResultHolder.resultTexture;
+//             cameraFeed.gameObject.SetActive(true);
+//         }
+//         else
+//         {
+//             Debug.LogWarning("Face image not found!");
+//             cameraFeed.gameObject.SetActive(false);
+//         }
+//     }
+
+//     public void GotoFaceScene()
+//     {
+//         // Хуучин зураг устгах
+//         if (DetectedFaceImageHolder.faceTexture != null)
+//         {
+//             Destroy(DetectedFaceImageHolder.faceTexture);
+//             DetectedFaceImageHolder.faceTexture = null;
+//         }
+
+//         // Scene руу шилжих
+//         UnityEngine.SceneManagement.SceneManager.LoadScene("face");
+//     }
+
+//     public void LetsGoButton()
+//    {
+//    UnityEngine.SceneManagement.SceneManager.LoadScene("moonScene");
+//    }
+// }
 
 using System.Collections;
 using System.Collections.Generic;
@@ -39,6 +94,7 @@ using UnityEngine.UI;  // Энэ мөрийг нэмнэ
 public class DFaceImageDisplay : MonoBehaviour
 {
     public RawImage cameraFeed;
+    public cameraExampl cameraScript; // Камер хариуцсан скрипт руу холбоно
 
     void Start()
     {
@@ -48,9 +104,9 @@ public class DFaceImageDisplay : MonoBehaviour
             return;
         }
 
-        if (DetectedFaceImageHolder.faceTexture != null)
+        if (FaceResultHolder.resultTexture != null)
         {
-            cameraFeed.texture = DetectedFaceImageHolder.faceTexture;
+            cameraFeed.texture = FaceResultHolder.resultTexture;
             cameraFeed.gameObject.SetActive(true);
         }
         else
@@ -60,21 +116,29 @@ public class DFaceImageDisplay : MonoBehaviour
         }
     }
 
-    public void GotoFaceScene()
+   public void BackToCamera()
+{
+    if (FaceResultHolder.resultTexture != null)
     {
-        // Хуучин зураг устгах
-        if (DetectedFaceImageHolder.faceTexture != null)
-        {
-            Destroy(DetectedFaceImageHolder.faceTexture);
-            DetectedFaceImageHolder.faceTexture = null;
-        }
-
-        // Scene руу шилжих
-        UnityEngine.SceneManagement.SceneManager.LoadScene("face");
+        Destroy(FaceResultHolder.resultTexture);
+        FaceResultHolder.resultTexture = null;
     }
 
+    cameraFeed.gameObject.SetActive(false);
+
+    if (cameraScript != null)
+    {
+        cameraScript.StartCamera(); // одоо энэ ажиллана
+    }
+    else
+    {
+        Debug.LogError("Camera script холбогдоогүй байна!");
+    }
+}
+
+
     public void LetsGoButton()
-   {
-   UnityEngine.SceneManagement.SceneManager.LoadScene("moonScene");
-   }
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("moonScene");
+    }
 }

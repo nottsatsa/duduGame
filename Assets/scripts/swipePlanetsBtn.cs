@@ -63,7 +63,7 @@ public class swipePlanetsBtn : MonoBehaviour
             if (scrollbar.GetComponent<Scrollbar>().value >= pos[i] - (distance / 2) && 
                 scrollbar.GetComponent<Scrollbar>().value <= pos[i] + (distance / 2))
             {
-                childScale = 1.1f;
+                childScale = 1.3f;
                 currentActiveIndex = i;
             }
             
