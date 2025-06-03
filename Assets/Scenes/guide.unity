@@ -1347,7 +1347,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultImage: {fileID: 0}
-  sourceImage: {fileID: 0}
   serverUrl: http://192.168.4.2:5000/detect_face
 --- !u!1 &1430092523
 GameObject:

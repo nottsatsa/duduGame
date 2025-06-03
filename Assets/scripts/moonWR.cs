@@ -9,7 +9,15 @@ public class moonWR : MonoBehaviour{
     public float updateInterval = 0.5f; // Шинэчлэх хугацаа
 
     [Header("UI Settings")]
-    public TMP_Text weightDisplay; // Жин харуулах текст
+    public TMP_Text moonweightDisplay; // Жин харуулах текст
+    public TMP_Text mercuryweightDisplay;
+    public TMP_Text venusweightDisplay;
+    public TMP_Text weightDisplay;
+    public TMP_Text marsweightDisplay;
+    public TMP_Text jupiterweightDisplay;
+    public TMP_Text saturnweightDisplay;
+    public TMP_Text uranusweightDisplay;
+    public TMP_Text neptuneweightDisplay;
     public TMP_Text statusDisplay; // Статус харуулах текст
     public GameObject connectionErrorPanel; // Холболтын алдааны панел
 
@@ -66,7 +74,16 @@ public class moonWR : MonoBehaviour{
 
             // UI дээр харуулах
             if (weightDisplay != null)
-                weightDisplay.text = $"Саран дээр {currentWeight*0.17}кг";
+                moonweightDisplay.text = $"Саран дээр {currentWeight * 0.17}кг";
+            mercuryweightDisplay.text = $"Буд дээр {currentWeight * 0.38}кг";
+            venusweightDisplay.text = $"Сугар дээр {currentWeight * 0.91}кг";
+            weightDisplay.text = $"Дэлхий дээр {currentWeight}кг";
+            marsweightDisplay.text = $"Ангараг дээр {currentWeight * 0.38}кг";
+            jupiterweightDisplay.text = $"Вөөөө! Бархасбадь {currentWeight * 2.34}кг";
+            saturnweightDisplay.text = $"Санчир дээр {currentWeight * 1.06}кг";
+            uranusweightDisplay.text = $"Тэнгэрийн ван дээр {currentWeight * 0.92}кг";
+            neptuneweightDisplay.text = $"Далайн ван дээр {currentWeight*1.19}кг";
+                  
         }
         catch (System.Exception e)
         {
